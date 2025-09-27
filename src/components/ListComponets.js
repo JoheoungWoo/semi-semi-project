@@ -1,15 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import products from "../dummydata/products.js";
-import Header from "../mainpage/Header";
-import NavBar from "../mainpage/NavBar";
-import Footer from "../mainpage/Footer";
 
 const ListComponets = () => {
   return (
     <>
-      <Header />
-      <NavBar />
       <div className="container mx-auto px-4 py-8">
         <h2 className="text-3xl font-bold text-center mb-8">의류</h2>
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -36,7 +31,6 @@ const ListComponets = () => {
           ))}
         </div>
       </div>
-      <Footer />
     </>
   );
 };

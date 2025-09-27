@@ -1,20 +1,15 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import products from "../dummydata/products.js";
-import Header from "../mainpage/Header";
-import NavBar from "../mainpage/NavBar";
-import Footer from "../mainpage/Footer";
 import ReviewComponents from "../components/ReviewComponents";
 import QandAComponents from "../components/QandAComponents";
 import { addToCart } from "../api/cartApi.js";
-
 
 const DetailComponets = () => {
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const { id } = useParams();
   const [qty, setQty] = useState(1);
-
 
   const product = products.find((p) => p.id === Number(id));
 
@@ -25,18 +20,16 @@ const DetailComponets = () => {
   };
 
   const handleAdd = async (id, qty) => {
-  try {
-    await addToCart(id, qty);
-    alert("장바구니에 담았습니다!");
-  } catch (e) {
-    alert("담기 실패: " + (e.response?.data || e.message));
-  }
-};
+    try {
+      await addToCart(id, qty);
+      alert("장바구니에 담았습니다!");
+    } catch (e) {
+      alert("담기 실패: " + (e.response?.data || e.message));
+    }
+  };
 
   return (
     <>
-      <Header />
-      <NavBar />
       <div className="container mx-auto px-4 py-8 mt-32">
         {/* 제품 상세 정보 섹션 */}
         <div className="flex flex-col lg:flex-row gap-8 mb-12">
@@ -109,7 +102,9 @@ const DetailComponets = () => {
                   >
                     -
                   </button>
-                  <span className="text-lg font-medium w-6 text-center">{qty}</span>
+                  <span className="text-lg font-medium w-6 text-center">
+                    {qty}
+                  </span>
                   <button
                     className="w-8 h-8 border rounded-md text-gray-600"
                     onClick={() => setQty((prev) => prev + 1)}
@@ -128,10 +123,10 @@ const DetailComponets = () => {
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
               <button
-              className="w-full sm:w-1/2 bg-gray-900 text-white font-bold py-3 rounded-lg hover:bg-gray-700 transition duration-300"
-              onClick={() => handleAdd(product.id, qty)}  // ✅ 화살표 함수로 감싸야 함
+                className="w-full sm:w-1/2 bg-gray-900 text-white font-bold py-3 rounded-lg hover:bg-gray-700 transition duration-300"
+                onClick={() => handleAdd(product.id, qty)} // ✅ 화살표 함수로 감싸야 함
               >
-              장바구니 담기
+                장바구니 담기
               </button>
               <button className="w-full sm:w-1/2 bg-gray-900 text-white font-bold py-3 rounded-lg hover:bg-gray-700 transition duration-300">
                 구매하기
@@ -143,7 +138,6 @@ const DetailComponets = () => {
         <ReviewComponents />
         <QandAComponents />
       </div>
-      <Footer />
     </>
   );
 };
