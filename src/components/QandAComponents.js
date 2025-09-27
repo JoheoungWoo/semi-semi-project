@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const QnAForm = () => {
+const QandAComponents = () => {
   const [list, setList] = useState([]);
   const [form, setForm] = useState({
     user_name: "",
@@ -123,4 +123,3 @@ const QnAForm = () => {
 };
 
 export default QandAComponents;
-
