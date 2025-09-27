@@ -3,6 +3,7 @@ import MainPage from "../pages/MainPage";
 import ListPage from "../pages/ListPage";
 import DetailPage from "../pages/DetailPage";
 import CartPage from "../pages/CartPage";
+import ProductList from "../components/ProductList";
 
 const root = createBrowserRouter([
   {
@@ -18,9 +19,13 @@ const root = createBrowserRouter([
     element: <DetailPage />,
   },
   {
-    path: "cart/:id",
+    path: "cart",
     element: <CartPage />,
   },
+  // {
+  //   path: "product/list",
+  //   element: <ProductList />,
+  // },
 ]);
 
 export default root;

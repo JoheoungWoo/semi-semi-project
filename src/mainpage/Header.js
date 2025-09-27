@@ -22,7 +22,7 @@ const Header = () => {
               <button className="hover:text-gray-900 focus:outline-none">
                 JOIN US
               </button>
-              <button className="hover:text-gray-900 focus:outline-none">
+              <button className="hover:text-gray-900 focus:outline-none" onClick={()=>navigate("/cart")}>
                 CART
               </button>
               <button className="hover:text-gray-900 focus:outline-none">

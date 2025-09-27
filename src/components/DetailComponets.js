@@ -6,11 +6,15 @@ import NavBar from "../mainpage/NavBar";
 import Footer from "../mainpage/Footer";
 import ReviewComponents from "../components/ReviewComponents";
 import QandAComponents from "../components/QandAComponents";
+import { addToCart } from "../api/cartApi.js";
+
 
 const DetailComponets = () => {
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const { id } = useParams();
+  const [qty, setQty] = useState(1);
+
 
   const product = products.find((p) => p.id === Number(id));
 
@@ -19,6 +23,15 @@ const DetailComponets = () => {
     colors: ["black", "white", "navy"],
     sizes: ["S", "M", "L", "XL"],
   };
+
+  const handleAdd = async (id, qty) => {
+  try {
+    await addToCart(id, qty);
+    alert("장바구니에 담았습니다!");
+  } catch (e) {
+    alert("담기 실패: " + (e.response?.data || e.message));
+  }
+};
 
   return (
     <>
@@ -90,17 +103,22 @@ const DetailComponets = () => {
               <div>
                 <h3 className="text-lg font-bold text-gray-700 mb-2">수량</h3>
                 <div className="flex items-center gap-4">
-                  <button className="w-8 h-8 border rounded-md text-gray-600">
+                  <button
+                    className="w-8 h-8 border rounded-md text-gray-600"
+                    onClick={() => setQty((prev) => Math.max(1, prev - 1))}
+                  >
                     -
                   </button>
-                  <span className="text-lg font-medium w-6 text-center">1</span>
-                  <button className="w-8 h-8 border rounded-md text-gray-600">
+                  <span className="text-lg font-medium w-6 text-center">{qty}</span>
+                  <button
+                    className="w-8 h-8 border rounded-md text-gray-600"
+                    onClick={() => setQty((prev) => prev + 1)}
+                  >
                     +
                   </button>
                 </div>
               </div>
             </div>
-
             {/* 총 금액 */}
             <div className="flex justify-between items-center mb-6">
               <span className="text-xl font-bold text-gray-700">
@@ -109,8 +127,11 @@ const DetailComponets = () => {
               <span className="text-3xl font-extrabold text-gray-900"></span>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="w-full sm:w-1/2 bg-gray-900 text-white font-bold py-3 rounded-lg hover:bg-gray-700 transition duration-300">
-                장바구니 담기
+              <button
+              className="w-full sm:w-1/2 bg-gray-900 text-white font-bold py-3 rounded-lg hover:bg-gray-700 transition duration-300"
+              onClick={() => handleAdd(product.id, qty)}  // ✅ 화살표 함수로 감싸야 함
+              >
+              장바구니 담기
               </button>
               <button className="w-full sm:w-1/2 bg-gray-900 text-white font-bold py-3 rounded-lg hover:bg-gray-700 transition duration-300">
                 구매하기
